@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
 
-
-  root to:  "homes#top"
   devise_for :users
-  resources :post_images, onry:[:new,:create,:index,:show,:destroy]
-  resources :users, onry:[:show,:edit,:update]
+  root to:  "homes#top"
   get 'homes/about' => 'homes#about',as: "about"
- end
+  resources :post_images, onry:[:new,:create,:index,:show,:destroy] do
+    resources :post_comments, onry: [:create,:destroy]
+  end  
+  resources :users, onry:[:show,:edit,:update]
+end
